@@ -33,13 +33,14 @@ def main():
         # player actions:
         print('Bet: ', bet)
         while True: # keep looping until player stands or busts
-            displayHand(playerHand, dealerHand, False)
+            displayHands(playerHand, dealerHand, False)
             print()
             if getHandValue(playerHand) > 21:
                 break
             move = getMove(playerHand, money - bet)
 
             if move == 'D': # double down
+                additionalBet = getBet(min(bet, (money - bet)))
                 bet  += additionalBet
                 print(f'Bet increase to {bet}')
                 print('Bet: ', bet)
@@ -84,12 +85,12 @@ def main():
 def getBet(maxBet):
 # Ask player how much they want to bet this round.
     while True:
-        print(f'How much do you bet? (1 - {maxBet}')
+        print(f'How much do you want to bet? (1 - {maxBet})')
         bet = input('> ').upper().strip()
         if bet == 'QUIT':
             print('Thanks for playing!')
             sys.exit()
-        if not bet.isdecimal() or bet.replace('.','',1).isdecimal():
+        if not (bet.isdecimal() or bet.replace('.','',1).isdecimal()):
             continue
         bet = float(bet)
         if 0 < bet <= maxBet:
@@ -158,7 +159,7 @@ def getMove(playerHand, money):
 # Ask player for their move and return hit, stand or double.
     while True:
         moves = ['(H)it', '(S)tand']
-        if len(playerHand) == 2 and monay > 0:
+        if len(playerHand) == 2 and money > 0:
             moves.append('(D)ouble down')
         movePrompt = ', '.join(moves) + '> '
         move = input(movePrompt).upper()
