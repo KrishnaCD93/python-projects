@@ -63,7 +63,7 @@ def main():
                     break
                 input('Press enter to continue...')
                 print('\n\n')
-        #display hands:
+        # display hands:
         displayHands(playerHand, dealerHand, True)
         playerValue = getHandValue(playerHand)
         dealerValue = getHandValue(dealerHand)
@@ -142,7 +142,7 @@ def displayCards(cards):
 # Display all the cards in the cards list.
     rows = ['','','','','']
     for i, card in enumerate(cards):
-        rows[0] += '__ '
+        rows[0] += '___ '
         if card == backside:
             rows[1] = '|## | '
             rows[2] = '|###| '
